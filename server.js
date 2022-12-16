@@ -1,6 +1,7 @@
 // require("dotenv").config();
 const express = require("express");
 const app = express();
+const bodyParser = require('body-parser')
 
 app.set("view engine", "jsx");
 app.engine("jsx", require("express-react-views").createEngine());
@@ -15,6 +16,10 @@ app.get("/logs/new", (req, res) => {
   });
 
 // Create
+app.post("/logs", (req, res) => {
+    //Log.create(req.body)
+    res.send(req.body)
+  });
 
 // Show Route
 
