@@ -14,6 +14,9 @@ export default class New extends Component {
           <br />
           <input type="submit" name="" value="Create Entry" />
         </form>
+        <nav>
+        <a href='/logs'>Back to Logs</a>
+        </nav>
       </div>
     );
   }
