@@ -21,6 +21,33 @@ mongoose.connection.once("open", () => {
   console.log("connected to mongo");
 });
 
+//Seed Data
+app.get("/logs/seed", (req, res) => {
+  const seededLogs = [
+    {
+      title: "10.10.10023 Log",
+      entry: "These pase few days strange things have been happening",
+      shipIsBroken: false,
+    },
+    {
+      title: "10.10.10043 Log",
+      entry: "We are under attack!",
+      shipIsBroken: true,
+    },
+    {
+      title: "10.10.10052 Log",
+      entry: "We are under attack! Not again!",
+      shipIsBroken: true,
+    },
+  ];
+
+  Logs.deleteMany({}).then((data) => {
+    Logs.create(seededLogs).then((data) => {
+      res.redirect("/logs");
+    });
+  });
+});
+
 // Index Route
 app.get("/logs", (req, res) => {
   Logs.find({}, (error, allLogs) => {
@@ -30,12 +57,12 @@ app.get("/logs", (req, res) => {
 
 // Show Route
 app.get("/logs/:id", (req, res) => {
-    Logs.findById(req.params.id, (err, foundLogs) => {
-      res.render("Show", {
-        logs: foundLogs,
-      });
+  Logs.findById(req.params.id, (err, foundLogs) => {
+    res.render("Show", {
+      logs: foundLogs,
     });
   });
+});
 
 // New
 app.get("/logs/new", (req, res) => {
@@ -51,18 +78,17 @@ app.post("/logs", (req, res) => {
 
 //Edit
 app.get("logs/:id/edit", (req, res) => {
-    Logs.findById(req.params.id, (err, logsData) => {
-      res.render("Edit", { logs: logsData });
-    });
+  Logs.findById(req.params.id, (err, logsData) => {
+    res.render("Edit", { logs: logsData });
   });
+});
 
 // Put Route
 app.put("/logs/:id", (req, res) => {
-    Logs.findByIdAndUpdate(req.params.id, req.body, (err, updatedLogs) => { 
-      res.redirect(`/logs/${req.params.id}`);
-    })
-  })
-  
+  Logs.findByIdAndUpdate(req.params.id, req.body, (err, updatedLogs) => {
+    res.redirect(`/logs/${req.params.id}`);
+  });
+});
 
 // Delete Route
 app.delete("/logs/:id", (req, res) => {

@@ -12,11 +12,9 @@ export default class New extends Component {
           <br />
           Ship is broken: <input type="checkbox" name="shipIsBroken" value="true" />
           <br />
-          <input type="submit" name="" value="Create Entry" />
+          <input type="submit" name="" value="Create Log" />
         </form>
-        <nav>
         <a href='/logs'>Back to Logs</a>
-        </nav>
       </div>
     );
   }
